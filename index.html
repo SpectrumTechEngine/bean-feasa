@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#173404">
+<meta name="robots" content="noindex,nofollow">
+<title>Bean Feasa</title>
+<meta name="description" content="A daily saying from the wise women of Irish myth and history.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Spectrum Tech Engine">
+<meta property="og:title" content="Bean Feasa: a daily word from the wise women of Ireland">
+<meta property="og:description" content="Brigid, Medb, Scáthach, the Morrígan and more. One saying a day, with her story.">
+<meta property="og:url" content="https://thespectrumtechengine.com/bean-feasa/">
+<meta property="og:image" content="https://thespectrumtechengine.com/bean-feasa/icon-512.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<script src="https://thespectrumtechengine.com/ste-owner.js" data-app="bean-feasa" defer></script>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Bean Feasa">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  /* Deep Irish green with gold for the daily page; warm parchment for "Tell me more" */
+  :root{--green:#173404;--green2:#27500A;--leaf:#C0DD97;--leaf2:#97C459;--gold:#FAC775;--gold2:#BA7517;
+    --parch:#FAEEDA;--ink:#412402;--ink2:#854F0B;--ink3:#633806;
+    --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;--sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{min-height:100vh;background:var(--green);color:#EAF3DE;font:16px/1.6 var(--sans);-webkit-tap-highlight-color:transparent}
+  button{font:inherit;cursor:pointer}
+  .wrap{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;
+    padding:calc(18px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom))}
+  header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .brand{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--gold);letter-spacing:.3px;line-height:1}
+  .daynav{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--leaf)}
+  .daynav button{background:none;border:0;color:var(--leaf);width:34px;height:34px;border-radius:50%;font-size:20px;line-height:1}
+  .daynav button:hover{background:var(--green2)}
+  .daynav button[hidden]{display:inline-block;visibility:hidden}
+  .orn{display:flex;align-items:center;gap:10px;margin:22px 0 0;color:var(--gold2)}
+  .orn::before,.orn::after{content:'';flex:1;height:1px;background:var(--gold2);opacity:.6}
+  .chip{align-self:flex-start;font-size:12px;letter-spacing:.4px;color:var(--gold);border:1px solid var(--gold2);border-radius:20px;padding:3px 12px}
+  .ga{font-family:var(--serif);font-size:30px;line-height:1.3;color:#fff;margin:18px 0 0;font-weight:600}
+  .q{font-family:var(--serif);font-size:30px;line-height:1.3;color:#fff;margin:18px 0 0;font-weight:500}
+  .q.en{font-size:21px;font-style:italic;color:var(--leaf);margin-top:10px}
+  .mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding:10px 0 24px}
+  .who{margin:14px 0 0;font-size:14px;color:var(--gold)}
+  .story{margin:18px 0 0;font-size:15px;color:var(--leaf)}
+  .grow{flex:1;min-height:24px}
+  .btns{display:flex;gap:10px}
+  .btns button{flex:1;padding:13px 0;border-radius:12px;font-size:15px}
+  .primary{background:var(--gold);color:#412402;border:0;font-weight:600}
+  .ghost{background:none;color:#EAF3DE;border:1px solid var(--leaf2)}
+  .foot{text-align:center;font-size:12px;color:var(--leaf2);margin:14px 0 0}
+  .foot a{color:var(--leaf2)}
+  .today{background:none;border:0;color:var(--gold);text-decoration:underline;font-size:13px;padding:0}
+
+  /* Tell me more */
+  #more{position:fixed;inset:0;background:var(--parch);color:var(--ink);overflow-y:auto;display:none}
+  #more.on{display:block}
+  #more .wrap{min-height:auto}
+  .back{align-self:flex-start;background:none;border:0;color:var(--ink2);font-size:14px;padding:6px 0}
+  .mname{font-family:var(--serif);font-size:38px;font-weight:600;margin:14px 0 0;line-height:1.1}
+  .mga{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ink3);margin:2px 0 0}
+  .msay{font-size:13px;color:var(--ink2);margin:6px 0 0}
+  #more h3{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--ink3);margin:24px 0 4px}
+  #more p.t{margin:0;font-size:15.5px}
+  .src{font-size:12.5px;color:var(--ink2);margin:26px 0 0;padding-top:12px;border-top:1px solid #EFD9B4}
+  .note{font-size:12.5px;color:var(--ink2);margin:10px 0 0}
+  .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#fff;color:#173404;
+    padding:10px 18px;border-radius:20px;font-size:14px;box-shadow:0 4px 16px rgba(0,0,0,.25);opacity:0;transition:opacity .25s;pointer-events:none}
+  .toast.on{opacity:1}
+</style>
+</head>
+<body>
+<main class="wrap" id="day">
+  <header>
+    <div class="brand">Bean Feasa</div>
+    <div class="daynav">
+      <button id="prev" aria-label="Previous day">&#8249;</button>
+      <span id="date"></span>
+      <button id="next" aria-label="Next day">&#8250;</button>
+    </div>
+  </header>
+  <div class="orn" aria-hidden="true">&#10022;</div>
+  <div class="mid">
+    <div class="chip" id="chip"></div>
+    <p class="ga" id="ga" hidden></p>
+    <p class="q" id="q"></p>
+    <p class="who" id="who"></p>
+    <p class="story" id="story"></p>
+  </div>
+  <div class="btns">
+    <button class="primary" id="moreBtn">Tell me more</button>
+    <button class="ghost" id="share">Share</button>
+  </div>
+  <p class="foot" id="foot"></p>
+</main>
+
+<section id="more" aria-label="Tell me more">
+  <div class="wrap">
+    <button class="back" id="back">&#8592; Back to today</button>
+    <h2 class="mname" id="mName"></h2>
+    <p class="mga" id="mGa"></p>
+    <p class="msay" id="mSay"></p>
+    <h3>Who she was</h3><p class="t" id="mWho"></p>
+    <h3>Her story</h3><p class="t" id="mStory"></p>
+    <h3>What she stands for</h3><p class="t" id="mStands"></p>
+    <p class="src" id="mSrc"></p>
+    <p class="note">Sayings marked "Inspired by" are new words written in the spirit of her story, not lines from the old texts. Sayings marked "Seanfhocal" are traditional Irish proverbs.</p>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script src="content.js"></script>
+<script>
+// ---- Which day is it? Everyone gets the same saying on the same day (Irish time). ----
+const START = Date.UTC(2026, 9, 22);           // day 1 = 22 Oct 2026
+const DAY = 86400000;
+function irishToday() {                         // today's date in Ireland, as a UTC midnight number
+  const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Dublin', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()).split('-');
+  return Date.UTC(+p[0], +p[1] - 1, +p[2]);
+}
+const pick = (t) => DAYS[(((Math.round((t - START) / DAY)) % DAYS.length) + DAYS.length) % DAYS.length];
+const fmt = (t) => new Date(t).toLocaleDateString('en-IE', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+
+const $ = (id) => document.getElementById(id);
+let today = irishToday(), shown = today;
+const LABEL = { i: 'Inspired by ', s: 'Seanfhocal · Irish saying' };
+
+function render() {
+  const d = pick(shown), w = WOMEN[d.w];
+  $('date').textContent = shown === today ? 'Today' : fmt(shown);
+  $('next').hidden = shown >= today;
+  $('chip').textContent = d.t === 'i' ? LABEL.i + w.name : LABEL.s;
+  $('ga').hidden = d.t !== 's';
+  $('ga').textContent = d.ga || '';
+  $('q').textContent = '"' + d.q + '"';
+  $('q').classList.toggle('en', d.t === 's');
+  $('who').textContent = d.t === 's' ? 'For ' + w.name + "'s day" : '';
+  $('who').hidden = d.t !== 's';
+  $('story').textContent = d.s;
+  $('foot').innerHTML = shown === today ? 'A new wise woman tomorrow' : '<button class="today" id="goToday">Back to today</button>';
+  if ($('goToday')) $('goToday').onclick = () => { shown = today; render(); };
+}
+
+$('prev').onclick = () => { shown -= DAY; render(); };
+$('next').onclick = () => { if (shown < today) { shown += DAY; render(); } };
+// Check the date again when the app comes back to the front (it may have been open overnight).
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'visible') return;
+  const t = irishToday(); if (t !== today) { if (shown === today) shown = t; today = t; render(); }
+});
+
+// ---- Tell me more ----
+function openMore(push) {
+  const w = WOMEN[pick(shown).w];
+  $('mName').textContent = w.name;
+  $('mGa').textContent = w.ga !== w.name ? 'In Irish: ' + w.ga : '';
+  $('mGa').hidden = w.ga === w.name;
+  $('mSay').textContent = 'Say it: ' + w.say + ' · means ' + w.means;
+  $('mWho').textContent = w.who;
+  $('mStory').textContent = w.story;
+  $('mStands').textContent = w.stands;
+  $('mSrc').textContent = 'Where the story comes from: ' + w.source;
+  $('back').innerHTML = '&#8592; Back to ' + (shown === today ? 'today' : 'the saying');
+  $('more').classList.add('on'); $('more').scrollTop = 0;
+  if (push) history.pushState({ more: 1 }, '', '#more');
+}
+function closeMore() { $('more').classList.remove('on'); }
+$('moreBtn').onclick = () => openMore(true);
+$('back').onclick = () => { if (history.state && history.state.more) history.back(); else closeMore(); };
+addEventListener('popstate', () => closeMore());   // the phone's back button closes it too
+
+// ---- Share: makes a picture card of the day's saying ----
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 2200); }
+function wrap(ctx, text, maxW) {
+  const words = text.split(' '), lines = []; let line = '';
+  for (const w of words) { const test = line ? line + ' ' + w : w; if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = w; } else line = test; }
+  if (line) lines.push(line); return lines;
+}
+async function makeCard() {
+  const d = pick(shown), w = WOMEN[d.w];
+  try { await document.fonts.load('600 60px "Cormorant Garamond"'); await document.fonts.load('italic 500 40px "Cormorant Garamond"'); } catch (e) {}
+  const W = 1080, H = 1350, c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d'), F = '"Cormorant Garamond", Georgia, serif';
+  x.fillStyle = '#173404'; x.fillRect(0, 0, W, H);
+  x.strokeStyle = '#BA7517'; x.lineWidth = 3; x.strokeRect(40, 40, W - 80, H - 80); x.strokeRect(54, 54, W - 108, H - 108);
+  x.fillStyle = '#FAC775'; x.textAlign = 'center';
+  x.font = '600 64px ' + F; x.fillText('Bean Feasa', W / 2, 170);
+  x.font = '30px system-ui, sans-serif'; x.fillStyle = '#C0DD97';
+  x.fillText(d.t === 'i' ? 'Inspired by ' + w.name : 'Seanfhocal · Irish saying', W / 2, 230);
+  // the saying, sized to fit
+  let y, size = 74, lines, sub = [];
+  const fit = () => {
+    x.font = '600 ' + size + 'px ' + F; lines = wrap(x, d.t === 's' ? d.ga : '"' + d.q + '"', W - 220);
+    if (d.t === 's') { x.font = 'italic 500 ' + Math.round(size * 0.66) + 'px ' + F; sub = wrap(x, '"' + d.q + '"', W - 240); }
+    return lines.length * size * 1.25 + sub.length * size * 0.85 + (sub.length ? 30 : 0);
+  };
+  while (fit() > 640 && size > 40) size -= 4;
+  y = H / 2 - fit() / 2 + size * 0.9 + 20;
+  x.fillStyle = '#FFFFFF'; x.font = '600 ' + size + 'px ' + F;
+  for (const l of lines) { x.fillText(l, W / 2, y); y += size * 1.25; }
+  if (sub.length) { y += 30 - size * 0.4; x.fillStyle = '#C0DD97'; x.font = 'italic 500 ' + Math.round(size * 0.66) + 'px ' + F; for (const l of sub) { x.fillText(l, W / 2, y); y += size * 0.85; } }
+  x.fillStyle = '#BA7517'; x.font = '40px ' + F; x.fillText('✦', W / 2, H - 200);
+  x.fillStyle = '#97C459'; x.font = '28px system-ui, sans-serif'; x.fillText('thespectrumtechengine.com/bean-feasa', W / 2, H - 120);
+  return new Promise((res) => c.toBlob(res, 'image/png'));
+}
+$('share').onclick = async () => {
+  const d = pick(shown), url = 'https://thespectrumtechengine.com/bean-feasa/';
+  const text = (d.t === 's' ? d.ga + ' (' + d.q + ')' : '"' + d.q + '"') + ' Bean Feasa ' + url;
+  try {
+    const blob = await makeCard(), file = new File([blob], 'bean-feasa.png', { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], text }); return; }
+    if (navigator.share) { await navigator.share({ text, url }); return; }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'bean-feasa.png'; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000); toast('Picture saved');
+  } catch (e) { if (e && e.name !== 'AbortError') toast('Couldn\'t share this time'); }
+};
+
+render();
+if (location.hash === '#more') { history.replaceState(null, '', location.pathname + location.search); }
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js');
+if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__bf = { setDay: (n) => { shown = START + n * DAY; render(); }, DAYS, WOMEN, makeCard };
+</script>
+</body>
+</html>
