@@ -1,5 +1,5 @@
 // Bean Feasa: keeps a copy of the app so it opens without internet, and always fetches the newest version when online.
-const C = 'bean-feasa-v1';
+const C = 'bean-feasa-v2';
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   e.waitUntil(caches.open(C).then((c) => c.addAll(['./', 'content.js', 'icon-192.png'])).catch(() => {}));
