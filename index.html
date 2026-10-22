@@ -22,12 +22,13 @@
 <meta name="apple-mobile-web-app-title" content="Bean Feasa">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Uncial+Antiqua&display=swap" rel="stylesheet">
 <style>
   /* Deep Irish green with gold for the daily page; warm parchment for "Tell me more" */
   :root{--green:#173404;--green2:#27500A;--leaf:#C0DD97;--leaf2:#97C459;--gold:#FAC775;--gold2:#BA7517;
     --parch:#FAEEDA;--ink:#412402;--ink2:#854F0B;--ink3:#633806;
-    --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;--sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+    --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;--sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --uncial:'Uncial Antiqua','Cormorant Garamond',Georgia,serif}
   *{box-sizing:border-box}
   html,body{margin:0}
   body{min-height:100vh;background:var(--green);color:#EAF3DE;font:16px/1.6 var(--sans);-webkit-tap-highlight-color:transparent}
@@ -35,19 +36,28 @@
   .wrap{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;
     padding:calc(18px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom))}
   header{display:flex;align-items:center;justify-content:space-between;gap:10px}
-  .brand{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--gold);letter-spacing:.3px;line-height:1}
+  .brand{font-family:var(--uncial);font-size:26px;color:var(--gold);letter-spacing:.3px;line-height:1}
   .daynav{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--leaf)}
   .daynav button{background:none;border:0;color:var(--leaf);width:34px;height:34px;border-radius:50%;font-size:20px;line-height:1}
   .daynav button:hover{background:var(--green2)}
   .daynav button[hidden]{display:inline-block;visibility:hidden}
   .tag{margin:8px 0 0;font-size:13px;color:var(--leaf2)}
-  .orn{display:flex;align-items:center;gap:10px;margin:16px 0 0;color:var(--gold2)}
-  .orn::before,.orn::after{content:'';flex:1;height:1px;background:var(--gold2);opacity:.6}
+  /* Celtic artwork: knotwork bands, triskele, the woman with the flame */
+  .orn{display:flex;align-items:center;gap:8px;margin:14px 0 0}
+  .orn .band{flex:1}
+  .band{display:block;width:100%;height:16px}
+  .hero{position:relative;display:flex;justify-content:center;margin:14px 0 4px}
+  .hero > svg{position:relative;width:170px;height:auto;overflow:visible}
+  .wm{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);opacity:.12;pointer-events:none;line-height:0}
+  .flame{transform-origin:56px 40px;animation:flick 3.2s ease-in-out infinite}
+  @keyframes flick{0%,100%{transform:scale(1)}50%{transform:scale(1.07,0.95)}}
+  @media (prefers-reduced-motion:reduce){.flame{animation:none}}
+  .endband{margin:16px 0 0}
   .chip{align-self:flex-start;font-size:12px;letter-spacing:.4px;color:var(--gold);border:1px solid var(--gold2);border-radius:20px;padding:3px 12px}
   .ga{font-family:var(--serif);font-size:30px;line-height:1.3;color:#fff;margin:18px 0 0;font-weight:600}
   .q{font-family:var(--serif);font-size:30px;line-height:1.3;color:#fff;margin:18px 0 0;font-weight:500}
   .q.en{font-size:21px;font-style:italic;color:var(--leaf);margin-top:10px}
-  .mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding:10px 0 24px}
+  .mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding:4px 0 20px}
   .who{margin:14px 0 0;font-size:14px;color:var(--gold)}
   .story{margin:18px 0 0;font-size:15px;color:var(--leaf)}
   .grow{flex:1;min-height:24px}
@@ -64,7 +74,11 @@
   #more.on{display:block}
   #more .wrap{min-height:auto}
   .back{align-self:flex-start;background:none;border:0;color:var(--ink2);font-size:14px;padding:6px 0}
-  .mname{font-family:var(--serif);font-size:38px;font-weight:600;margin:14px 0 0;line-height:1.1}
+  .mhead{display:flex;align-items:center;gap:14px;margin:14px 0 0}
+  .initial{flex:none;width:66px;height:66px;border:3px double var(--ink2);border-radius:6px;background:#173404;color:var(--gold);
+    display:flex;align-items:center;justify-content:center;font-family:var(--uncial);font-size:40px;line-height:1;position:relative}
+  .initial svg{position:absolute;width:14px;height:14px}
+  .mname{font-family:var(--uncial);font-size:32px;font-weight:400;margin:0;line-height:1.15}
   .mga{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ink3);margin:2px 0 0}
   .msay{font-size:13px;color:var(--ink2);margin:6px 0 0}
   #more h3{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--ink3);margin:24px 0 4px}
@@ -87,7 +101,28 @@
     </div>
   </header>
   <p class="tag">Daily wisdom from the wise women of Irish myth.</p>
-  <div class="orn" aria-hidden="true">&#10022;</div>
+  <div class="orn" aria-hidden="true"><span class="band" data-band="gold"></span><span id="tri1"></span><span class="band" data-band="gold"></span></div>
+  <div class="hero" aria-hidden="true">
+    <span class="wm" id="wm"></span>
+    <!-- a Celtic woman, cloak blowing in the wind, holding Brigid's flame up high -->
+    <svg viewBox="0 0 200 250" role="presentation">
+      <path d="M8 246 Q100 222 192 246 Z" fill="#27500A"/>
+      <path d="M97 62 C116 58 132 76 144 104 C154 128 170 146 196 152 C170 162 140 150 124 126 C114 110 108 98 104 92 Z" fill="#854F0B"/>
+      <path d="M100 92 C86 112 70 168 46 238 C80 230 124 230 158 238 C146 176 128 128 112 98 Z" fill="#BA7517"/>
+      <path d="M112 98 C128 128 146 176 158 238 C170 226 182 212 196 206 C176 196 156 160 140 128 C132 112 122 102 112 98 Z" fill="#854F0B"/>
+      <path d="M76 160 C92 170 112 170 132 160" fill="none" stroke="#FAC775" stroke-width="1.6" stroke-dasharray="1 4" stroke-linecap="round"/>
+      <path d="M58 226 C90 218 120 218 152 226" fill="none" stroke="#FAC775" stroke-width="1.6"/>
+      <path d="M95 106 L72 72 L60 44" fill="none" stroke="#BA7517" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="98" cy="74" r="15" fill="#BA7517"/>
+      <path d="M84 70 C84 54 102 50 110 58 C118 66 116 80 112 90 C106 84 100 78 98 66 C94 72 88 74 84 70 Z" fill="#854F0B"/>
+      <path d="M87 93 Q99 101 111 93" fill="none" stroke="#FAC775" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="86" cy="93" r="2.6" fill="#FAC775"/><circle cx="112" cy="93" r="2.6" fill="#FAC775"/>
+      <g class="flame">
+        <path d="M60 40 C46 32 48 18 56 4 C58 14 64 16 66 24 C70 18 70 14 68 10 C78 20 76 36 60 40 Z" fill="#FAC775"/>
+        <path d="M60 37 C54 33 55 26 58 20 C60 26 64 28 63 32 Z" fill="#EF9F27"/>
+      </g>
+    </svg>
+  </div>
   <div class="mid">
     <div class="chip" id="chip"></div>
     <p class="ga" id="ga" hidden></p>
@@ -100,18 +135,21 @@
     <button class="ghost" id="share">Share</button>
   </div>
   <p class="foot" id="foot"></p>
+  <span class="band endband" data-band="gold" aria-hidden="true"></span>
 </main>
 
 <section id="more" aria-label="Tell me more">
   <div class="wrap">
     <button class="back" id="back">&#8592; Back to today</button>
-    <h2 class="mname" id="mName"></h2>
+    <span class="band" data-band="ink" aria-hidden="true" style="margin-top:8px"></span>
+    <div class="mhead"><div class="initial" id="mInit" aria-hidden="true"></div><h2 class="mname" id="mName"></h2></div>
     <p class="mga" id="mGa"></p>
     <p class="msay" id="mSay"></p>
     <h3>Who she was</h3><p class="t" id="mWho"></p>
     <h3>Her story</h3><p class="t" id="mStory"></p>
     <h3>What she stands for</h3><p class="t" id="mStands"></p>
     <p class="src" id="mSrc"></p>
+    <span class="band" data-band="ink" aria-hidden="true" style="margin-top:22px"></span>
     <p class="note">Sayings marked "Inspired by" are new words written in the spirit of her story, not lines from the old texts. Sayings marked "Seanfhocal" are traditional Irish proverbs.</p>
   </div>
 </section>
@@ -131,6 +169,26 @@ const pick = (t) => DAYS[(((Math.round((t - START) / DAY)) % DAYS.length) + DAYS
 const fmt = (t) => new Date(t).toLocaleDateString('en-IE', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
 
 const $ = (id) => document.getElementById(id);
+
+// ---- Celtic artwork, drawn in code (works offline, also used on the Share picture) ----
+// Triskele: three spirals joined in the middle, like the carvings at Newgrange.
+const ARM = 'M0 0A9 9 0 0 1 0-18A6.5 6.5 0 0 1 0-5A4 4 0 0 1 0-13A2 2 0 0 1 0-9';
+const triskele = (px, col, sw) => '<svg viewBox="-24 -24 48 48" width="' + px + '" height="' + px + '" aria-hidden="true"><g fill="none" stroke="' + col +
+  '" stroke-width="' + sw + '" stroke-linecap="round">' + [0, 120, 240].map((a) => '<path transform="rotate(' + a + ')" d="' + ARM + '"/>').join('') + '</g></svg>';
+// Knotwork: two strands weaving over and under. One tile is 40 wide, 20 high.
+const wave = (sign, a, b) => { let d = ''; for (let x = a; x <= b; x += 2) d += (x === a ? 'M' : 'L') + x + ' ' + (10 + sign * 6 * Math.cos(Math.PI * x / 20)).toFixed(2); return d; };
+const KNOT = [wave(1, 0, 20), wave(-1, 0, 40), wave(1, 20, 40)];   // drawn in this order so the strands take turns on top
+const BANDS = { gold: ['#173404', '#BA7517'], ink: ['#FAEEDA', '#854F0B'] };
+document.querySelectorAll('[data-band]').forEach((el, i) => {
+  const [bg, fg] = BANDS[el.dataset.band], id = 'k' + i;
+  el.innerHTML = '<svg class="band" preserveAspectRatio="none"><defs><pattern id="' + id + '" width="40" height="20" patternUnits="userSpaceOnUse" patternTransform="scale(0.8)">' +
+    KNOT.map((d) => '<path d="' + d + '" fill="none" stroke="' + bg + '" stroke-width="6"/><path d="' + d + '" fill="none" stroke="' + fg + '" stroke-width="2.2"/>').join('') +
+    '</pattern></defs><rect width="100%" height="16" fill="url(#' + id + ')"/></svg>';
+});
+$('tri1').innerHTML = triskele(26, '#FAC775', 2.4);
+$('wm').innerHTML = triskele(250, '#FAC775', 1.4);
+$('mInit').innerHTML = [['top:3px;left:3px'], ['top:3px;right:3px'], ['bottom:3px;left:3px'], ['bottom:3px;right:3px']]
+  .map(([s]) => triskele(14, '#BA7517', 3).replace('<svg', '<svg style="' + s + '"')).join('') + '<span id="mLetter"></span>';
 let today = irishToday(), shown = today;
 const LABEL = { i: 'Inspired by ', s: 'Seanfhocal · Irish saying' };
 
@@ -162,6 +220,7 @@ document.addEventListener('visibilitychange', () => {
 function openMore(push) {
   const w = WOMEN[pick(shown).w];
   $('mName').textContent = w.name;
+  $('mLetter').textContent = w.name.replace(/^The /, '')[0];
   $('mGa').textContent = w.ga !== w.name ? 'In Irish: ' + w.ga : '';
   $('mGa').hidden = w.ga === w.name;
   $('mSay').textContent = 'Say it: ' + w.say + ' · means ' + w.means;
@@ -190,12 +249,28 @@ async function makeCard() {
   try { await document.fonts.load('600 60px "Cormorant Garamond"'); await document.fonts.load('italic 500 40px "Cormorant Garamond"'); } catch (e) {}
   const W = 1080, H = 1350, c = document.createElement('canvas'); c.width = W; c.height = H;
   const x = c.getContext('2d'), F = '"Cormorant Garamond", Georgia, serif';
+  try { await document.fonts.load('64px "Uncial Antiqua"'); } catch (e) {}
   x.fillStyle = '#173404'; x.fillRect(0, 0, W, H);
-  x.strokeStyle = '#BA7517'; x.lineWidth = 3; x.strokeRect(40, 40, W - 80, H - 80); x.strokeRect(54, 54, W - 108, H - 108);
+  x.strokeStyle = '#BA7517'; x.lineWidth = 3; x.strokeRect(40, 40, W - 80, H - 80);
+  // knotwork bands top and bottom
+  const band = (y) => { x.save(); x.beginPath(); x.rect(70, y, W - 140, 30); x.clip();
+    for (let t = 70; t < W - 70; t += 60) { x.save(); x.translate(t, y); x.scale(1.5, 1.5);
+      for (const p of KNOT) { const P = new Path2D(p); x.strokeStyle = '#173404'; x.lineWidth = 6; x.stroke(P); x.strokeStyle = '#BA7517'; x.lineWidth = 2.2; x.stroke(P); }
+      x.restore(); } x.restore(); };
+  band(66); band(H - 96);
+  // faint triskele and the woman with the flame
+  const tri = (cx, cy, s, col, lw, a) => { x.save(); x.globalAlpha = a; x.translate(cx, cy); x.scale(s, s); x.strokeStyle = col; x.lineWidth = lw; x.lineCap = 'round';
+    for (const r of [0, 120, 240]) { x.save(); x.rotate(r * Math.PI / 180); x.stroke(new Path2D(ARM)); x.restore(); } x.restore(); };
+  tri(W / 2, 390, 6, '#FAC775', 1.4, 0.12);
+  try {
+    const svg = new XMLSerializer().serializeToString(document.querySelector('.hero > svg')).replace('<svg', '<svg width="200" height="250"');
+    const im = new Image(); im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    await im.decode(); x.drawImage(im, W / 2 - 110, 270, 220, 275);
+  } catch (e) {}
   x.fillStyle = '#FAC775'; x.textAlign = 'center';
-  x.font = '600 64px ' + F; x.fillText('Bean Feasa', W / 2, 170);
+  x.font = '64px "Uncial Antiqua", ' + F; x.fillText('Bean Feasa', W / 2, 180);
   x.font = '30px system-ui, sans-serif'; x.fillStyle = '#C0DD97';
-  x.fillText(d.t === 'i' ? 'Inspired by ' + w.name : 'Seanfhocal · Irish saying', W / 2, 230);
+  x.fillText(d.t === 'i' ? 'Inspired by ' + w.name : 'Seanfhocal · Irish saying', W / 2, 236);
   // the saying, sized to fit
   let y, size = 74, lines, sub = [];
   const fit = () => {
@@ -203,13 +278,13 @@ async function makeCard() {
     if (d.t === 's') { x.font = 'italic 500 ' + Math.round(size * 0.66) + 'px ' + F; sub = wrap(x, '"' + d.q + '"', W - 240); }
     return lines.length * size * 1.25 + sub.length * size * 0.85 + (sub.length ? 30 : 0);
   };
-  while (fit() > 640 && size > 40) size -= 4;
-  y = H / 2 - fit() / 2 + size * 0.9 + 20;
+  while (fit() > 480 && size > 36) size -= 4;
+  y = 820 - fit() / 2 + size * 0.9;
   x.fillStyle = '#FFFFFF'; x.font = '600 ' + size + 'px ' + F;
   for (const l of lines) { x.fillText(l, W / 2, y); y += size * 1.25; }
   if (sub.length) { y += 30 - size * 0.4; x.fillStyle = '#C0DD97'; x.font = 'italic 500 ' + Math.round(size * 0.66) + 'px ' + F; for (const l of sub) { x.fillText(l, W / 2, y); y += size * 0.85; } }
-  x.fillStyle = '#BA7517'; x.font = '40px ' + F; x.fillText('✦', W / 2, H - 200);
-  x.fillStyle = '#97C459'; x.font = '28px system-ui, sans-serif'; x.fillText('thespectrumtechengine.com/bean-feasa', W / 2, H - 120);
+  tri(W / 2, H - 200, 1.3, '#FAC775', 2.4, 1);
+  x.fillStyle = '#97C459'; x.font = '28px system-ui, sans-serif'; x.fillText('thespectrumtechengine.com/bean-feasa', W / 2, H - 126);
   return new Promise((res) => c.toBlob(res, 'image/png'));
 }
 $('share').onclick = async () => {
